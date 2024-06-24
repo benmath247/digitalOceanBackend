@@ -19,6 +19,17 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.http import JsonResponse
+
+def example_view(request):
+    response_data = {
+        'message': 'This is an example response',
+        'status': 'success'
+    }
+    return JsonResponse(response_data)
+
+
 urlpatterns = [
+    path('example/', example_view, name='example'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
