@@ -35,4 +35,4 @@ class TestimonialSectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestimonialSection
-        fields = ['users', 'testimonials', 'include', 'header', 'subheader']
+        fields = ['users', 'include', 'header', 'subheader', 'testimonials']
