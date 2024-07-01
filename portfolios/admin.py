@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQSection, Question
+from .models import FAQSection, Question, BlogSection, Blog
 
 class QuestionInline(admin.TabularInline):
     model = Question
@@ -20,4 +20,23 @@ class FAQSectionAdmin(admin.ModelAdmin):
         if not obj.users.filter(id=request.user.id).exists():
             obj.users.add(request.user)
 
+class PostInline(admin.TabularInline):
+    model = Blog
+    extra = 1  # Number of extra forms to display
+
+class BlogSectionAdmin(admin.ModelAdmin):
+    inlines = [PostInline]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(users=request.user)
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if not obj.users.filter(id=request.user.id).exists():
+            obj.users.add(request.user)
+
 admin.site.register(FAQSection, FAQSectionAdmin)
+admin.site.register(BlogSection, BlogSectionAdmin)

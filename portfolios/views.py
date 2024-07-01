@@ -1,6 +1,7 @@
 from rest_framework.generics import RetrieveAPIView
-from .models import FAQSection
+from .models import FAQSection, BlogSection
 from .serializers import FAQSectionSerializer
+from .serializers import BlogSectionSerializer
 
 class FAQSectionViewSet(RetrieveAPIView):
     """
@@ -8,3 +9,7 @@ class FAQSectionViewSet(RetrieveAPIView):
     """
     queryset = FAQSection.objects.all()
     serializer_class = FAQSectionSerializer
+
+class BlogSectionViewSet(RetrieveAPIView):
+    queryset = BlogSection.objects.all()
+    serializer_class = BlogSectionSerializer

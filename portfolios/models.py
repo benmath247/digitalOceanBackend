@@ -17,3 +17,21 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+    
+class BlogSection(models.Model):
+    users = models.ManyToManyField(User)
+    include = models.BooleanField(default=True)
+    button = models.CharField(max_length=300, null=True, blank=True, default="View all blogs")
+
+    def __str__(self):
+        return "blog:" + self.button
+
+class Blog(models.Model):
+    image = models.ImageField(upload_to='blogs/', null=True, blank=True)
+    title = models.CharField(max_length=300, null=False, blank=False)
+    date = models.DateField(auto_now_add=True)
+    text = RichTextField(null=True, blank=False)
+    section = models.ForeignKey(BlogSection, on_delete=models.CASCADE, related_name='blogs')
+
+    def __str__(self):
+        return self.title
