@@ -28,11 +28,11 @@ class BlogSectionSerializer(serializers.ModelSerializer):
 class TestimonialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Testimonial
-        fields = '__all__'
+        fields = ['id', 'profile_image', "company_image", "testimonial_giver_name", 'testimonial_giver_position']
 
 class TestimonialSectionSerializer(serializers.ModelSerializer):
     testimonials = TestimonialSerializer(many=True, read_only=True)
 
     class Meta:
         model = TestimonialSection
-        fields = ['__all__', 'testimonials']
+        fields = ['users', 'testimonials', 'include', 'header', 'subheader']
