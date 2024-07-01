@@ -46,6 +46,7 @@ class TestimonialSection(models.Model):
         return self.header + " - " + self.subheader
 
 class Testimonial(models.Model):
+    section = models.ForeignKey(TestimonialSection, on_delete=models.CASCADE, null=True)
     profile_image = models.ImageField(upload_to='testimonials/profile/', null=True, blank=True)
     company_image = models.ImageField(upload_to='testimonials/company/', null=True, blank=True)
     testimonial_giver_name = models.CharField(max_length=300, null=False, blank=False)
