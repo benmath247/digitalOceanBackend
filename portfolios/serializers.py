@@ -35,4 +35,4 @@ class TestimonialSectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestimonialSection
-        fields = '__all__'
+        fields = ['__all__', 'testimonials']
