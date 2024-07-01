@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FAQSection, Question, BlogSection, Blog
+from .models import *
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,15 @@ class BlogSectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogSection
         fields = ['id', 'button', 'include', 'blogs']
+
+class TestimonialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonial
+        fields = '__all__'
+
+class TestimonialSectionSerializer(serializers.ModelSerializer):
+    testimonials = TestimonialSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = TestimonialSection
+        fields = '__all__'

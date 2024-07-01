@@ -35,3 +35,22 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+class TestimonialSection(models.Model):
+    users = models.ManyToManyField(User)
+    include = models.BooleanField(default=True)
+    header = models.CharField(max_length=300, null=True, blank=True, default="View all blogs")
+    subheader = models.CharField(max_length=300, null=True, blank=True, default="View all blogs")
+
+    def __str__(self):
+        return self.header + " - " + self.subheader
+
+class Testimonial(models.Model):
+    profile_image = models.ImageField(upload_to='testimonials/profile/', null=True, blank=True)
+    company_image = models.ImageField(upload_to='testimonials/company/', null=True, blank=True)
+    testimonial_giver_name = models.CharField(max_length=300, null=False, blank=False)
+    testimonial_giver_position = models.CharField(max_length=300, null=False, blank=False)
+    testimonial_text = RichTextField(null=True, blank=False)
+
+    def __str__(self):
+        return self.testimonial_giver_name
