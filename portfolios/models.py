@@ -47,8 +47,8 @@ class TestimonialSection(models.Model):
 
 class Testimonial(models.Model):
     section = models.ForeignKey(TestimonialSection, on_delete=models.CASCADE, null=True)
-    profile_image = models.ImageField(upload_to='testimonials/profile/', null=True, blank=True)
-    company_image = models.ImageField(upload_to='testimonials/company/', null=True, blank=True)
+    profile_image = models.ImageField(null=True, blank=True)
+    company_image = models.ImageField(null=True, blank=True)
     testimonial_giver_name = models.CharField(max_length=300, null=False, blank=False)
     testimonial_giver_position = models.CharField(max_length=300, null=False, blank=False)
     testimonial_text = RichTextField(null=True, blank=False)
