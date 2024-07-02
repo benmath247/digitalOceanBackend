@@ -31,7 +31,7 @@ class TestimonialSerializer(serializers.ModelSerializer):
         fields = ['id', 'profile_image', "company_image", "testimonial_giver_name", 'testimonial_giver_position', 'testimonial_text']
 
 class TestimonialSectionSerializer(serializers.ModelSerializer):
-    testimonials = TestimonialSerializer(many=True, read_only=True)
+    testimonials = TestimonialSerializer(many=True, read_only=True, source='testimonial_set')
 
     class Meta:
         model = TestimonialSection
