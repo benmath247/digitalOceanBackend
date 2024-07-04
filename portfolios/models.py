@@ -54,7 +54,7 @@ class Testimonial(models.Model):
     testimonial_giver_name = models.CharField(max_length=300, null=False, blank=False)
     testimonial_giver_position = models.CharField(max_length=300, null=False, blank=False)
     testimonial_text = RichTextField(null=True, blank=False)
-    slug = models.SlugField(max_length=300, unique=True, blank=True)
+    slug = models.SlugField(max_length=300, blank=True)
 
     def __str__(self):
         return self.testimonial_giver_name
