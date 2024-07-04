@@ -16,3 +16,8 @@ class BlogSectionViewSet(RetrieveAPIView):
 class TestimonialSectionViewSet(RetrieveAPIView):
     queryset = TestimonialSection.objects.all()
     serializer_class = TestimonialSectionSerializer
+
+class TestimonialRetrieveAPIView(RetrieveAPIView):
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
+    lookup_field = 'slug'

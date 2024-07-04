@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 
 class FAQSection(models.Model):
@@ -45,6 +46,7 @@ class TestimonialSection(models.Model):
     def __str__(self):
         return self.header + " - " + self.subheader
 
+
 class Testimonial(models.Model):
     section = models.ForeignKey(TestimonialSection, on_delete=models.CASCADE, null=True)
     profile_image = models.ImageField(null=True, blank=True)
@@ -52,6 +54,12 @@ class Testimonial(models.Model):
     testimonial_giver_name = models.CharField(max_length=300, null=False, blank=False)
     testimonial_giver_position = models.CharField(max_length=300, null=False, blank=False)
     testimonial_text = RichTextField(null=True, blank=False)
+    slug = models.SlugField(max_length=300, unique=True, blank=True)
 
     def __str__(self):
         return self.testimonial_giver_name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.testimonial_giver_name)
+        super(Testimonial, self).save(*args, **kwargs)
