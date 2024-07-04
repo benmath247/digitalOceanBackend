@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, utils
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
@@ -60,6 +60,10 @@ class Testimonial(models.Model):
         return self.testimonial_giver_name
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.testimonial_giver_name)
+        try:
+            if not self.slug:
+                self.slug = slugify(self.testimonial_giver_name)
+        except utils.IntegrityError:
+            self.slug += self.id
+
         super(Testimonial, self).save(*args, **kwargs)
